@@ -1,0 +1,63 @@
+body {
+  background-color: white;
+}
+
+.nav {
+  background-color: black;
+  color: white;
+  width: 100%;
+  text-align: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  margin: 0;
+  top: 0;
+  left: 0;
+  position: absolute;
+  box-sizing: "border-box";
+  font-weight:normal;
+  font-size: 10px;
+}
+
+.App {
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+  padding: 20px;
+}
+
+.product-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.product {
+  padding: 20px;
+  margin: 10px;
+  width: 200px;
+  text-align: center;
+}
+
+.product img {
+  width: 150px;
+  height: 200px;
+}
+
+.product-list h3 {
+  font-size: 12px;
+}
+
+.product-list p {
+  font-size: 10px;
+}
+
+.product:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product.clicked {
+  background-color: #f0f0f0;
+  border: 2px solid #000;
+}
