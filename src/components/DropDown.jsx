@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Dropdown.css';
+import './dropdown.css';
 
 const currencies = [
     { code: 'PKR', name: 'Pakistani Rupee', flag: 'https://flagcdn.com/w40/pk.png' },
