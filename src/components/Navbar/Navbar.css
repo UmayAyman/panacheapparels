@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 15px;
+    padding: 5px 5px;
     background-color: white;
     font-family: 'Times New Roman', Times, serif;
     width: 100%;
@@ -12,8 +12,25 @@
 .navbar-section {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
     text-transform: uppercase;
+}
+
+.navbar-section label {
+    margin-right: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+select {
+    padding: 4px;
+    font-size: 12px;
+}
+
+.un-stitched {
+    margin: 0 10px;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .logo {
@@ -21,15 +38,22 @@
 }
 
 .logo h1 {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
     color: goldenrod;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.logo1 {
+    font-size: 12px;
+    font-weight: bold;
     text-transform: uppercase;
 }
 
 .menu-item {
     position: relative;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     color: black;
     text-transform: uppercase;
@@ -42,29 +66,29 @@
 
 .dropdown-icon {
     margin-left: 5px;
-    font-size: 12px;
+    font-size: 15px;
 }
 
 .cart-icon {
-    font-size: 23px;
+    font-size: 15px;
     font-weight: bold;
     cursor: pointer;
 }
 
 .user-icon {
-    font-size: 23px;
+    font-size: 15px;
     cursor: pointer;
 }
 
 .search-icon {
     cursor: pointer;
     font-weight: bold;
-    font-size: 30px;
-    margin-right: 20px;
+    font-size: 15px;
+    margin-right: -5px;
 }
 
 .user-icon, .cart-icon {
-    margin-left: 20px;
+    margin-left: -5px;
 }
 
 .search-icon:hover, .user-icon:hover, .cart-icon:hover {

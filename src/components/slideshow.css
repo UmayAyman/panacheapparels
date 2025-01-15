@@ -4,6 +4,7 @@
     margin: auto;
     overflow: hidden;
     box-sizing: "border-box";
+    margin-top: -50px;
 }
 
 .slideshow-container img {

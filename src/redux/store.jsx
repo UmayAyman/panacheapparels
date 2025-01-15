@@ -1,17 +1,12 @@
-import { createStore } from 'redux';
-const initialState = {
-    products: [],
-};
+import { configureStore } from '@reduxjs/toolkit';
+import cartReducer from '../redux/cartSlice';
+import productsReducer from '../redux/productSlice';
 
-const productReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case 'SET_PRODUCTS':
-            return { ...state, products: action.payload };
-        default:
-            return state;
-    }
-};
-
-const store = createStore(productReducer);
+export const store = configureStore({
+    reducer: {
+        products: productsReducer,
+        cart: cartReducer,
+    },
+});
 
 export default store;
