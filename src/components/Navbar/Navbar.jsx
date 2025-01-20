@@ -1,14 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 import { BsClipboard } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
 import { SlUser } from "react-icons/sl";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
+    const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
+
+    const toggleSearchBar = () => {
+        setIsSearchBarVisible(!isSearchBarVisible);
+    };
+
     return (
         <div className="navbar">
-                <i className="search-icon" ><CiSearch /></i>
+        <div className="search-icon">
+            <CiSearch onClick={toggleSearchBar} className="search-icon-clickable" />
+        </div>
+        {isSearchBarVisible && (
+                <div className="search-modal">
+                    <div className="search-modal-content">
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            className="search-input"
+                        />
+                        <CiSearch className="search-icon-in-bar" />
+                        <AiOutlineClose
+                            onClick={toggleSearchBar}
+                            className="close-icon"
+                        />
+                    </div>
+                </div>
+            )}
+
             <div className="navbar-section">
                 <label>NEW IN</label>
                 <select style={{ width: "18px", height: "14px" }} name="navbar">
@@ -16,7 +42,7 @@ const Navbar = () => {
                     <option value="Fest">ELEGANCE FEST PRET</option>
                 </select>
             </div>
-            <div className="navbar-section" >
+            <div className="navbar-section">
                 <label>WINTER EDIT</label>
                 <select style={{ width: "18px", height: "14px" }} name="navbar">
                     <option value="winter">Velvet Edit</option>
@@ -25,7 +51,7 @@ const Navbar = () => {
                     <option value="Fest">Velvet Shawls</option>
                 </select>
             </div>
-            <div className="un-stitched" >
+            <div className="un-stitched">
                 <label>UNSTITCHED</label>
             </div>
 
@@ -45,7 +71,6 @@ const Navbar = () => {
                 <p>KIDS</p>
             </div>
 
-
             <div className="navbar-section">
                 <label>ALL COLLECTIONS</label>
                 <select style={{ width: "18px", height: "14px" }} name="navbar">
@@ -60,10 +85,16 @@ const Navbar = () => {
             </div>
 
             <div className="navbar-section">
-                <i className="user-icon"><SlUser /></i>
-            <div className="chart-header">
-                <Link to="/Cart" className="cart-icon"><BsClipboard /></Link>
-            </div>
+                <div className="user-icon">
+                    <Link to="/User" className="user-icon">
+                        <SlUser />
+                    </Link>
+                </div>
+                <div className="cart-icon">
+                    <Link to="/Cart" className="cart-icon">
+                        <BsClipboard />
+                    </Link>
+                </div>
             </div>
         </div>
     );

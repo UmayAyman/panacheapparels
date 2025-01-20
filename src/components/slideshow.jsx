@@ -18,16 +18,6 @@ const Slideshow = () => {
         return () => clearInterval(interval);
     }, [images.length]);
 
-    const nextSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    };
-
-    const prevSlide = () => {
-        setCurrentIndex(
-            (prevIndex) => (prevIndex - 1 + images.length) % images.length
-        );
-    };
-
     return (
         <div className="slideshow-container">
             <img

@@ -1,0 +1,91 @@
+.product-details {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-details img {
+    width: 100%;
+    max-width: 330px;
+    height: 400px;
+    border-radius: 8px;
+    margin-right: 30px;
+}
+
+.product-info {
+    margin-left: 20px;
+    flex: 1;
+}
+
+.product-info h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.product-info .ratings {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #ff9f00;
+}
+
+.product-info .brand {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #666;
+}
+
+.product-info .price {
+    font-size: 1.3rem;
+    color: #e53935;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.product-info .discount {
+    font-size: 1rem;
+    color: #888;
+    text-decoration: line-through;
+    margin-left: 10px;
+}
+
+.product-info .save {
+    font-size: 1rem;
+    color: green;
+    margin-left: 10px;
+}
+
+.product-info button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.product-info button:hover {
+    background-color: #454646;
+}
+
+.notification {
+    position: fixed;
+    top: 85%;
+    color: rgb(56, 54, 32);
+    font-size: 1rem;
+    animation: fadeInOut 3s ease-in-out;
+}
