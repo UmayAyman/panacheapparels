@@ -7,7 +7,7 @@ import Dropdown from "./components/DropDown";
 import Footer from './components/Navbar/Footer';
 import Header from './components/Navbar/header';
 import Navbar from './components/Navbar/Navbar';
-import ProductList from './components/productList';
+import ProductList from './components/ProductList';
 import Slideshow from "./components/slideshow";
 import ProductDetails from './ProductDetails/Details';
 import { fetchProducts } from './redux/productSlice';
