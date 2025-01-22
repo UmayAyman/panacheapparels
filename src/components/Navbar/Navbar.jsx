@@ -3,30 +3,55 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BsClipboard } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
 import { SlUser } from "react-icons/sl";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
     const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const navigate = useNavigate();
 
     const toggleSearchBar = () => {
         setIsSearchBarVisible(!isSearchBarVisible);
     };
 
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const handleSearchSubmit = () => {
+        if (searchQuery.trim()) {
+            navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+            setIsSearchBarVisible(false);
+        }
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            handleSearchSubmit();
+        }
+    };
+
     return (
         <div className="navbar">
-        <div className="search-icon">
-            <CiSearch onClick={toggleSearchBar} className="search-icon-clickable" />
-        </div>
-        {isSearchBarVisible && (
+            <div className="search-icon">
+                <CiSearch onClick={toggleSearchBar} className="search-icon-clickable" />
+            </div>
+            {isSearchBarVisible && (
                 <div className="search-modal">
                     <div className="search-modal-content">
                         <input
                             type="text"
                             placeholder="Search"
                             className="search-input"
+                            value={searchQuery}
+                            onChange={handleSearchChange}
+                            onKeyPress={handleKeyPress}
                         />
-                        <CiSearch className="search-icon-in-bar" />
+                        <CiSearch
+                            className="search-icon-in-bar"
+                            onClick={handleSearchSubmit}
+                        />
                         <AiOutlineClose
                             onClick={toggleSearchBar}
                             className="close-icon"
@@ -34,7 +59,6 @@ const Navbar = () => {
                     </div>
                 </div>
             )}
-
             <div className="navbar-section">
                 <label>NEW IN</label>
                 <select style={{ width: "18px", height: "14px" }} name="navbar">
@@ -54,23 +78,18 @@ const Navbar = () => {
             <div className="un-stitched">
                 <label>UNSTITCHED</label>
             </div>
-
             <div className="logo">
                 <h1>Panache Apparels</h1>
             </div>
-
             <div className="logo1">
                 <p>HOT SELLERS</p>
             </div>
-
             <div className="logo1">
                 <p>SALE</p>
             </div>
-
             <div className="logo1">
                 <p>KIDS</p>
             </div>
-
             <div className="navbar-section">
                 <label>ALL COLLECTIONS</label>
                 <select style={{ width: "18px", height: "14px" }} name="navbar">
@@ -83,7 +102,6 @@ const Navbar = () => {
                     <option value="Fest">Nova</option>
                 </select>
             </div>
-
             <div className="navbar-section">
                 <div className="user-icon">
                     <Link to="/User" className="user-icon">

@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import Cart from "./Cart/Items";
 import Dropdown from "./components/DropDown";
@@ -11,6 +13,7 @@ import ProductList from './components/ProductList';
 import Slideshow from "./components/slideshow";
 import ProductDetails from './ProductDetails/Details';
 import { fetchProducts } from './redux/productSlice';
+import Search from './Search/Searchbar';
 import User from './User/Info';
 
 const App = () => {
@@ -21,6 +24,8 @@ const App = () => {
   }, [dispatch]);
   
   return (
+    <>
+    <ToastContainer />
     <Router>
       <Header />
       <Navbar />
@@ -35,10 +40,12 @@ const App = () => {
         } />
         <Route path="/Cart" element={<Cart />} />
         <Route path="/User" element={<User />} />
+        <Route path="/Search" element={<Search />} />
         <Route path="/ProductDetails" element={<ProductDetails />} />
         <Route path="/product/:id" element={<ProductDetails />} />
       </Routes>
     </Router>
+    </>
   );
 };
 

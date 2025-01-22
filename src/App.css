@@ -156,5 +156,29 @@ footer {
 footer p {
   margin: 0;
   font-size: 14px;
+}
 
+.product-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin: 10px;
+  width: 200px;
+  text-align: center;
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.search-results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.search-results {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
