@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const SearchResults = () => {
     const [products, setProducts] = useState([]);
@@ -37,16 +37,33 @@ const SearchResults = () => {
                 <div>No products found</div>
             ) : (
                 products.map((product) => (
-                    <div key={product.id} className="product-card">
-                        <img
-                            src={product.image}
-                            alt={product.title}
-                            className="product-image"
-                        />
-                        <h3 style = {{fontWeight: "bold", textTransform: "uppercase"}}>{product.title}</h3>
-                        <p style = {{color: "black", textAlign: "left", fontWeight: "lighter", fontSize: "12px"}}>{product.description}</p>
-                        <p>${product.price}</p>
-                    </div>
+                    <Link
+                        key={product.id}
+                        to={`/product/${product.id}`} // Navigate to ProductDetails with the product ID
+                        style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                        <div className="product-card">
+                            <img
+                                src={product.image}
+                                alt={product.title}
+                                className="product-image"
+                            />
+                            <h3 style={{ fontWeight: "bold", textTransform: "uppercase" }}>
+                                {product.title}
+                            </h3>
+                            <p
+                                style={{
+                                    color: "black",
+                                    textAlign: "left",
+                                    fontWeight: "lighter",
+                                    fontSize: "12px",
+                                }}
+                            >
+                                {product.description}
+                            </p>
+                            <p>${product.price}</p>
+                        </div>
+                    </Link>
                 ))
             )}
         </div>
