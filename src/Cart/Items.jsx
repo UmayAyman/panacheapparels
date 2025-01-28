@@ -1,12 +1,25 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
 import { removeFromCart } from '../redux/cartSlice';
 
 const Cart = () => {
     const cart = useSelector((state) => state.cart);
+    // const user = useSelector((state) => state.auth);
+    // console.log(user);
     const dispatch = useDispatch();
+    // const navigate = useNavigate();
 
     const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    const handleRemoveFromCart = (itemId) => {
+        // if (!user.isLoggedIn) {
+        //     alert('You must be logged in to remove items from the cart.');
+        //     navigate('/user');
+        //     return;
+        // }
+        dispatch(removeFromCart({ id: itemId }));
+    };
 
     return (
         <div className="cart">
@@ -21,7 +34,7 @@ const Cart = () => {
                         </p>
                         <p>${(item.price * item.quantity).toFixed(2)}</p>
                         <button
-                            onClick={() => dispatch(removeFromCart({ id: item.id }))}
+                            onClick={() => handleRemoveFromCart(item.id)}
                             aria-label={`Remove one ${item.title}`}
                         >
                             Remove

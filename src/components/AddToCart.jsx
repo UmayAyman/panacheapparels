@@ -1,21 +1,24 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom"; //useNavigate
+import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { addToCart } from "../redux/cartSlice";
 
-const AddToCart = ({ product }) => {
+const AddToCart = ({ product, notify }) => {
     const dispatch = useDispatch();
+    // const navigate = useNavigate();
+    const user = useSelector((state) => state.auth);
 
     const handleAddToCart = () => {
+    //     if (!user.isLoggedIn) {
+    //         toast.error('You must be logged in to add items to the cart.');
+    //         navigate("/user");
+    //         return;
+    //     }
+        console.log('Adding to cart:', product);
         dispatch(addToCart(product));
-        toast.success("Product added to cart!", {
-            position: "top-center",
-            autoClose: 3000,
-            icon: "🛒",
-            theme: "dark",
-        });
+        toast.success(`${product.title} added to cart!`);
     };
 
     return (

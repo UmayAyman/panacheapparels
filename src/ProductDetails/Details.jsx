@@ -1,37 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { addToCart } from '../redux/cartSlice';
-import { fetchProducts } from '../redux/productSlice';
-import './Details.css';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom"; //useNavigate
+import { addToCart } from "../redux/cartSlice";
+import { fetchProducts } from "../redux/productSlice";
+import "./Details.css";
 
 const ProductDetails = () => {
-    const { id } = useParams();          //for accessing product through ids
+    const { id } = useParams();
     const dispatch = useDispatch();
+    // const navigate = useNavigate();
     const [notification, setNotification] = useState(false);
 
     const product = useSelector((state) =>
         state.products.items.find((item) => item.id === parseInt(id))
     );
-
     const status = useSelector((state) => state.products.status);
+    // const isLoggedIn = useSelector((state) => state.isLoggedIn);
 
     useEffect(() => {
-        if (!product && status === 'idle') {
+        if (!product && status === "idle") {
             dispatch(fetchProducts());
         }
     }, [dispatch, product, status]);
 
     const handleAddToCart = () => {
+        // console.log("isLoggedIn:", isLoggedIn);
+        // if (!isLoggedIn) {
+        //     alert("You must be logged in to add items to the cart.");
+        //     navigate("/user");
+        //     return;
+        // }
+
         dispatch(addToCart(product));
-        setNotification(true)
+        setNotification(true);
 
         setTimeout(() => {
             setNotification(false);
         }, 3000);
     };
 
-    if (status === 'loading') {
+    if (status === "loading") {
         return <p>Loading product details...</p>;
     }
 
