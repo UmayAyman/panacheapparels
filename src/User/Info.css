@@ -87,3 +87,9 @@ form button:hover {
     cursor: pointer;
     text-align: center;
 }
+
+.user-details button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}

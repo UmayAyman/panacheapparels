@@ -7,7 +7,7 @@ import AddToCart from './AddToCart';
 
 const ProductList = () => {
     const { items, status } = useSelector((state) => state.products);
-    // const user = useSelector((state) => state.auth);
+    const user = useSelector((state) => state.auth);
 
     if (status === 'loading') return <p>Loading products...</p>;
     if (status === 'failed') return <p>Failed to load products.</p>;
@@ -22,7 +22,7 @@ const ProductList = () => {
                 <AddToCart
                     key={product.id}
                     product={product}
-                    // isLoggedIn={user.isLoggedIn}
+                    isLoggedIn={user.isLoggedIn}
                     notify={() =>
                     toast.success(`${product.name} added to cart!`)}
                 />

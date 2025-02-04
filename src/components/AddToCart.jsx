@@ -1,24 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom"; //useNavigate
-import { toast } from 'react-toastify';
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addToCart } from "../redux/cartSlice";
 
-const AddToCart = ({ product, notify }) => {
+const AddToCart = ({ product }) => {
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
-    const user = useSelector((state) => state.auth);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
+    useEffect(() => {
+        if (isLoggedIn && location.state?.fromCart) {
+            dispatch(addToCart(product));
+            toast.success(`${product.title} added to cart!`);
+            navigate(location.pathname, { replace: true });
+        }
+    }, [isLoggedIn, dispatch, location, navigate, product]);
 
     const handleAddToCart = () => {
-    //     if (!user.isLoggedIn) {
-    //         toast.error('You must be logged in to add items to the cart.');
-    //         navigate("/user");
-    //         return;
-    //     }
-        console.log('Adding to cart:', product);
-        dispatch(addToCart(product));
-        toast.success(`${product.title} added to cart!`);
+        if (!isLoggedIn) {
+            navigate("/user", { state: { fromCart: true, from: location.pathname } });
+        } else {
+            dispatch(addToCart(product));
+            toast.success(`${product.title} added to cart!`);
+        }
     };
 
     return (

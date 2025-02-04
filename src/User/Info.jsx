@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./Info.css";
 
 const User = () => {
@@ -14,6 +14,15 @@ const User = () => {
     const [loggedInUser, setLoggedInUser] = useState(null);
 
     const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        const storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
+        if (storedUser) {
+            setLoggedInUser(storedUser);
+        }
+    }, []);
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -33,9 +42,11 @@ const User = () => {
             );
 
             if (user) {
+                localStorage.setItem("loggedInUser", JSON.stringify(user));
                 setLoggedInUser(user);
                 alert("Logged in successfully!");
-                navigate("/");
+                
+                navigate(location.state?.from || "/", { state: { fromCart: location.state?.fromCart } });
             } else {
                 setError("Invalid email or password.");
                 return;
@@ -79,105 +90,120 @@ const User = () => {
         setFormData({ firstName: "", lastName: "", email: "", password: "" });
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem("loggedInUser");
+        setLoggedInUser(null);
+        setFormType("login");
+    };
+
+    if (loggedInUser) {
+        return (
+            <div className="user-details">
+                <h1 style={{ textAlign: "center" }}>Welcome, {loggedInUser.firstName}!</h1>
+                <button style={{ backgroundColor: "black", borderRadius: "10px", justifyContent: "center" }} onClick={handleLogout}>
+                    Logout
+                </button>
+            </div>
+        );
+    }
+
     return (
         <div className="auth-container">
-            {!loggedInUser && (
-                <>
-                    {formType === "login" && (
-                        <form onSubmit={handleSubmit}>
-                            <h1>LOGIN</h1>
-                            {error && <p className="error-message">• {error}</p>}
-                            <label htmlFor="email">EMAIL</label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                            />
-                            <div className="password-container">
-                                <label htmlFor="password">PASSWORD</label>
-                                <a onClick={() => setFormType("forgot")} className="forgot-password">
-                                    Forgot password?
-                                </a>
-                            </div>
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                            />
-                            <button type="submit">SIGN IN</button>
-                            <p className="switch-form" onClick={() => setFormType("signup")}>
-                                Create account
-                            </p>
-                        </form>
-                    )}
-
-                    {formType === "signup" && (
-                        <form onSubmit={handleSubmit}>
-                            <h1>CREATE ACCOUNT</h1>
-                            {error && <p className="error-message">• {error}</p>}
-                            <label htmlFor="firstName">FIRST NAME</label>
-                            <input
-                                type="text"
-                                id="firstName"
-                                name="firstName"
-                                value={formData.firstName}
-                                onChange={handleChange}
-                            />
-                            <label htmlFor="lastName">LAST NAME</label>
-                            <input
-                                type="text"
-                                id="lastName"
-                                name="lastName"
-                                value={formData.lastName}
-                                onChange={handleChange}
-                            />
-                            <label htmlFor="email">EMAIL</label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                            />
+            <div className="form-container">
+                {formType === "login" && (
+                    <form onSubmit={handleSubmit}>
+                        <h1>LOGIN</h1>
+                        {error && <p className="error-message">• {error}</p>}
+                        <label htmlFor="email">EMAIL</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
+                        <div className="password-container">
                             <label htmlFor="password">PASSWORD</label>
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                            />
-                            <button type="submit">CREATE</button>
-                            <p className="switch-form" onClick={() => setFormType("login")}>
-                                Already have an account? Login
-                            </p>
-                        </form>
-                    )}
+                            <a onClick={() => setFormType("forgot")} className="forgot-password">
+                                Forgot password?
+                            </a>
+                        </div>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                        />
+                        <button type="submit">SIGN IN</button>
+                        <p className="switch-form" onClick={() => setFormType("signup")}>
+                            Create account
+                        </p>
+                    </form>
+                )}
 
-                    {formType === "forgot" && (
-                        <form onSubmit={handleSubmit}>
-                            <h1>FORGOT PASSWORD</h1>
-                            {error && <p className="error-message">• {error}</p>}
-                            <label htmlFor="email">EMAIL</label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                            />
-                            <button type="submit">RESET PASSWORD</button>
-                            <p className="switch-form" onClick={() => setFormType("login")}>
-                                Back to Login
-                            </p>
-                        </form>
-                    )}
-                </>
-            )}
+                {formType === "signup" && (
+                    <form onSubmit={handleSubmit}>
+                        <h1>CREATE ACCOUNT</h1>
+                        {error && <p className="error-message">• {error}</p>}
+                        <label htmlFor="firstName">FIRST NAME</label>
+                        <input
+                            type="text"
+                            id="firstName"
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleChange}
+                        />
+                        <label htmlFor="lastName">LAST NAME</label>
+                        <input
+                            type="text"
+                            id="lastName"
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleChange}
+                        />
+                        <label htmlFor="email">EMAIL</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
+                        <label htmlFor="password">PASSWORD</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                        />
+                        <button type="submit">CREATE</button>
+                        <p className="switch-form" onClick={() => setFormType("login")}>
+                            Already have an account? Login
+                        </p>
+                    </form>
+                )}
+
+                {formType === "forgot" && (
+                    <form onSubmit={handleSubmit}>
+                        <h1>FORGOT PASSWORD</h1>
+                        {error && <p className="error-message">• {error}</p>}
+                        <label htmlFor="email">EMAIL</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
+                        <button type="submit">RESET PASSWORD</button>
+                        <p className="switch-form" onClick={() => setFormType("login")}>
+                            Back to Login
+                        </p>
+                    </form>
+                )}
+            </div>
         </div>
     );
 };
