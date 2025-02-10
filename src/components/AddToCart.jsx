@@ -11,22 +11,29 @@ const AddToCart = ({ product }) => {
     const navigate = useNavigate();
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
-    useEffect(() => {
-        if (isLoggedIn && location.state?.fromCart) {
-            dispatch(addToCart(product));
-            toast.success(`${product.title} added to cart!`);
-            navigate(location.pathname, { replace: true });
-        }
-    }, [isLoggedIn, dispatch, location, navigate, product]);
+        useEffect(() => {
+            if (!product && status === "idle") {
+                dispatch(fetchProducts());
+                toast.success(`${product.title} added to cart!`);
+            }
+        }, [dispatch, product, status]);
 
-    const handleAddToCart = () => {
-        if (!isLoggedIn) {
-            navigate("/user", { state: { fromCart: true, from: location.pathname } });
-        } else {
+        const handleAddToCart = () => {
+            console.log("isLoggedIn:", isLoggedIn);
+            if (!isLoggedIn) {
+                alert("You must be logged in to add items to the cart.");
+                navigate("/user");
+                return;
+            }
+    
             dispatch(addToCart(product));
             toast.success(`${product.title} added to cart!`);
-        }
-    };
+            setNotification(true);
+    
+            setTimeout(() => {
+                setNotification(false);
+            }, 3000);
+        };
 
     return (
         <div className="product-card">

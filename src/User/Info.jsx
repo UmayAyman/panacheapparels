@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { login, logout } from "../redux/authSlice";
 import "./Info.css";
 
 const User = () => {
     const [formType, setFormType] = useState("login");
+    const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -43,6 +46,7 @@ const User = () => {
 
             if (user) {
                 localStorage.setItem("loggedInUser", JSON.stringify(user));
+                dispatch(login());
                 setLoggedInUser(user);
                 alert("Logged in successfully!");
                 
@@ -92,6 +96,7 @@ const User = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("loggedInUser");
+        dispatch(logout());
         setLoggedInUser(null);
         setFormType("login");
     };

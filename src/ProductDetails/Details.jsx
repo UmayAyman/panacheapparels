@@ -15,7 +15,7 @@ const ProductDetails = () => {
         state.products.items.find((item) => item.id === parseInt(id))
     );
     const status = useSelector((state) => state.products.status);
-    const isLoggedIn = useSelector((state) => state.isLoggedIn);
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
     useEffect(() => {
         if (!product && status === "idle") {
